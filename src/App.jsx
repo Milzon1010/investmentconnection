@@ -28,8 +28,10 @@ const App = () => {
       id: "cover",
       title: "InvestmentConnection",
       subtitle: "MASTERPLAN ECOSYSTEM DIGITAL & SOSIAL 2026",
-      author: "Milzon",
-      email: "mohd.milzon@allanraytechsight.co.id",
+      ideaAuthor: "Andre",
+      ideaEmail: "andre.rusdi@gmail.com",
+      designAuthor: "Milzon",
+      designEmail: "mohd.milzon@allanraytechsight.co.id",
       content: "Platform orkestrasi futuristik yang menyatukan Jaringan 5G Privasi, Smart Agriculture IoT, dan Digitalisasi Warung Mart untuk menciptakan ekonomi berbagi yang transparan, efisien, dan pro-aktif.",
       color: theme.bg,
       iconColor: theme.accentTech
@@ -73,7 +75,7 @@ const App = () => {
       title: "Estimasi Kebutuhan Dasar (BoQ)",
       subtitle: "Perkiraan Perangkat Utama Pilot Project (1 Unit)",
       icon: <DollarSign size={48} />,
-      iconColor: theme.accentTech, // Diubah agar warnanya variatif
+      iconColor: theme.accentTech,
       isBoQ: true,
       color: "#010811"
     },
@@ -166,7 +168,6 @@ const App = () => {
       cursor: 'default'
     }),
     flowBox: { background: 'rgba(255,255,255,0.05)', padding: '20px', borderRadius: '12px', display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: '150px', border: `1px solid ${theme.border}`, position: 'relative', zIndex: 2 },
-    
     topologyNode: (color) => ({
       display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px',
       padding: '15px 20px', background: 'rgba(0,0,0,0.5)',
@@ -235,14 +236,22 @@ const App = () => {
 
             <div style={{position:'relative', zIndex:2, width:'100%'}}>
               
-              {slide.type === 'cover' && (
+              {/* SLIDE COVER FIX: slide.type diganti menjadi slide.id */}
+              {slide.id === 'cover' && (
                 <div style={{ textAlign: 'center', display:'flex', flexDirection:'column', alignItems:'center' }}>
                   <p style={{ fontSize: '1.4rem', color: theme.textMain, maxWidth: '800px', lineHeight: '1.6', marginBottom:'40px', fontWeight:'500' }}>{slide.content}</p>
-                  <div style={{ background: 'rgba(0,0,0,0.2)', padding: '20px 40px', borderRadius: '12px', border: `1px solid ${theme.border}`}}>
-                    <p style={{ fontSize: '0.9rem', color: theme.textMuted, margin: '0 0 5px 0' }}>MASTERPLAN & RE-DESIGN OLEH:</p>
-                    <strong style={{ fontSize: '1.5rem', color: theme.accentTech, textShadow: `0 0 10px ${theme.accentTech}` }}>{slide.author}</strong>
-                    <p style={{ color: theme.textMuted, margin: '5px 0 0 0', fontStyle:'italic' }}>{slide.email}</p>
-                    <p style={{ fontSize: '0.8rem', color: theme.accentWarn, marginTop: '10px' }}>*Berdasarkan Ide Orisinal: Andre (andre.rusdi@gmail.com)</p>
+                  
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', justifyContent: 'center', marginTop: '30px' }}>
+                    <div style={{ background: 'rgba(0,0,0,0.3)', padding: '15px 30px', borderRadius: '12px', border: `1px solid ${theme.accentWarn}`}}>
+                      <p style={{ fontSize: '0.8rem', color: theme.accentWarn, textTransform: 'uppercase', margin: '0 0 5px 0', letterSpacing: '1px' }}>Idea by:</p>
+                      <strong style={{ fontSize: '1.3rem', color: theme.textMain }}>{slide.ideaAuthor}</strong>
+                      <p style={{ color: theme.textMuted, fontSize: '0.9rem', margin: '3px 0 0 0', fontStyle:'italic' }}>{slide.ideaEmail}</p>
+                    </div>
+                    <div style={{ background: 'rgba(0,0,0,0.3)', padding: '15px 30px', borderRadius: '12px', border: `1px solid ${theme.accentTech}`}}>
+                      <p style={{ fontSize: '0.8rem', color: theme.accentTech, textTransform: 'uppercase', margin: '0 0 5px 0', letterSpacing: '1px' }}>Project design by:</p>
+                      <strong style={{ fontSize: '1.3rem', color: theme.textMain }}>{slide.designAuthor}</strong>
+                      <p style={{ color: theme.textMuted, fontSize: '0.9rem', margin: '3px 0 0 0', fontStyle:'italic' }}>{slide.designEmail}</p>
+                    </div>
                   </div>
                 </div>
               )}
