@@ -3,7 +3,7 @@ import {
   ChevronDown, Wifi, Sprout, Store, TrendingUp, Zap, Server, Database,
   Factory, ShieldCheck, Calendar, ArrowRight, Users, HardDrive, Truck,
   MonitorSmartphone, ShoppingCart, Lock, Smartphone, PieChart, DollarSign, MapPin, Target,
-  Radio, Router, Activity, LineChart, Coins
+  Radio, Router, Activity, LineChart, Coins, ArrowLeft, Map, Navigation, Droplets, ThermometerSun, Wind, Cpu, Crosshair
 } from 'lucide-react';
 
 const theme = {
@@ -22,6 +22,7 @@ const theme = {
 const App = () => {
   const scrollContainer = useRef(null);
   const [activeSlide, setActiveSlide] = useState(0);
+  const [showSample, setShowSample] = useState(false); 
 
   const slides = [
     {
@@ -146,7 +147,7 @@ const App = () => {
       padding: 'clamp(15px, 5vw, 50px)', borderRadius: '24px', backdropFilter: 'blur(15px)',
       border: `1px solid ${theme.border}`, boxShadow: theme.shadow,
       position: 'relative', zIndex: 10, transition: 'all 0.3s ease',
-      marginRight: 'clamp(5px, 3vw, 20px)' // Mencegah tabrakan dengan titik navigasi
+      marginRight: 'clamp(5px, 3vw, 20px)' 
     },
     neonTitle: (color) => ({
       fontSize: 'clamp(1.8rem, 5vw, 3.8rem)', fontWeight: '700', textTransform: 'uppercase',
@@ -190,6 +191,158 @@ const App = () => {
     </div>
   );
 
+  // === TAMPILAN SAMPLE APLIKASI (MOCKUP DASHBOARD) ===
+  if (showSample) {
+    return (
+      <div style={{ minHeight: '100vh', background: '#020617', color: 'white', fontFamily: "'Rajdhani', sans-serif", padding: 'clamp(15px, 4vw, 30px)' }}>
+        <style>{`
+          @keyframes radarSpin { from { transform: translate(-50%, -50%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg); } }
+          @keyframes nodePing { 0% { transform: scale(0.5); opacity: 1; } 100% { transform: scale(3); opacity: 0; } }
+          .stat-card { background: rgba(255,255,255,0.03); padding: 20px; borderRadius: 16px; backdrop-filter: blur(10px); }
+        `}</style>
+        
+        {/* Header Dashboard */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: `1px solid ${theme.border}`, paddingBottom: '15px', marginBottom: '20px', flexWrap: 'wrap', gap: '15px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+            <Activity size={35} color={theme.accentWarn} style={{animation: 'pulseGlow 2s infinite'}} />
+            <div>
+              <h1 style={{ margin: 0, fontSize: 'clamp(1.2rem, 3vw, 1.8rem)', color: theme.textMain, textShadow: `0 0 10px ${theme.accentTech}` }}>COMMAND CENTER 5G</h1>
+              <p style={{ margin: 0, color: theme.accentTech, fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '1px' }}>Global Telemetry Dashboard</p>
+            </div>
+          </div>
+          <button onClick={() => setShowSample(false)} style={{ display: 'flex', alignItems: 'center', gap: '8px', background: 'rgba(239, 68, 68, 0.1)', border: `1px solid ${theme.accentWarn}`, color: theme.accentWarn, padding: '8px 16px', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold' }}>
+            <ArrowLeft size={18} /> Keluar
+          </button>
+        </div>
+
+        {/* Top 4 Key Metrics */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '15px', marginBottom: '20px' }}>
+          <div className="stat-card" style={{ borderLeft: `4px solid ${theme.accentCom}` }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', color: theme.textMuted, marginBottom: '10px' }}><span>Total Portfolio</span><DollarSign size={20}/></div>
+            <h2 style={{ margin: 0, fontSize: '2rem', color: theme.accentCom }}>$124,500</h2>
+            <p style={{ margin: '5px 0 0', fontSize: '0.8rem', color: theme.accentAgri }}>+ 4.2% Growth / MoM</p>
+          </div>
+          <div className="stat-card" style={{ borderLeft: `4px solid ${theme.accentAgri}` }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', color: theme.textMuted, marginBottom: '10px' }}><span>Rata-Rata Lahan (IoT)</span><ThermometerSun size={20}/></div>
+            <h2 style={{ margin: 0, fontSize: '2rem', color: theme.textMain }}>78% <span style={{fontSize:'1rem'}}>H2O</span></h2>
+            <p style={{ margin: '5px 0 0', fontSize: '0.8rem', color: theme.accentTech }}>Suhu: 28°C | Pump: Auto</p>
+          </div>
+          <div className="stat-card" style={{ borderLeft: `4px solid ${theme.accentWarn}` }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', color: theme.textMuted, marginBottom: '10px' }}><span>Distribusi Mart</span><ShoppingCart size={20}/></div>
+            <h2 style={{ margin: 0, fontSize: '2rem', color: theme.textMain }}>1,240 <span style={{fontSize:'1rem'}}>Trx</span></h2>
+            <p style={{ margin: '5px 0 0', fontSize: '0.8rem', color: theme.textMuted }}>Volume hari ini: 420 Kg</p>
+          </div>
+          <div className="stat-card" style={{ borderLeft: `4px solid ${theme.accentTech}` }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', color: theme.textMuted, marginBottom: '10px' }}><span>Active Nodes 5G</span><Cpu size={20}/></div>
+            <h2 style={{ margin: 0, fontSize: '2rem', color: theme.accentTech }}>142 <span style={{fontSize:'1rem'}}>On</span></h2>
+            <p style={{ margin: '5px 0 0', fontSize: '0.8rem', color: theme.accentAgri }}>Network Health: 99.9%</p>
+          </div>
+        </div>
+
+        {/* Middle Section: Geomapping & Logistics */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '20px', marginBottom: '20px' }}>
+          
+          {/* GEOMAPPING RADAR */}
+          <div style={{ background: 'rgba(0,0,0,0.5)', border: `1px solid ${theme.border}`, borderRadius: '16px', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+            <div style={{ padding: '15px', background: 'rgba(34, 211, 238, 0.1)', borderBottom: `1px solid ${theme.border}`, display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <Map color={theme.accentTech} /> <strong style={{color: theme.accentTech}}>GEOMAPPING: ZONA PANTAUAN</strong>
+            </div>
+            
+            {/* Radar Viewport */}
+            <div style={{ 
+              height: '300px', width: '100%', position: 'relative', background: '#030712', overflow: 'hidden',
+              backgroundImage: `linear-gradient(rgba(34, 211, 238, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(34, 211, 238, 0.1) 1px, transparent 1px)`,
+              backgroundSize: '30px 30px'
+            }}>
+              {/* Radar Sweep Effect */}
+              <div style={{ position: 'absolute', top: '50%', left: '50%', width: '600px', height: '600px', background: 'conic-gradient(from 0deg, transparent 70%, rgba(34, 211, 238, 0.4) 100%)', borderRadius: '50%', transformOrigin: 'center', animation: 'radarSpin 4s linear infinite', zIndex: 1 }} />
+              
+              {/* Node 1: Situsari */}
+              <div style={{ position: 'absolute', top: '35%', left: '25%', zIndex: 5, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <div style={{ position: 'relative' }}>
+                  <div style={{ width: '16px', height: '16px', background: theme.accentAgri, borderRadius: '50%', position: 'absolute' }}></div>
+                  <div style={{ width: '16px', height: '16px', background: theme.accentAgri, borderRadius: '50%', animation: 'nodePing 2s infinite' }}></div>
+                </div>
+                <div style={{ background: 'rgba(0,0,0,0.8)', padding: '5px 10px', borderRadius: '4px', border: `1px solid ${theme.accentAgri}`, marginTop: '8px', whiteSpace: 'nowrap' }}>
+                  <p style={{ margin: 0, fontSize: '0.75rem', color: 'white', fontWeight: 'bold' }}>Zona A: Lahan Situsari</p>
+                  <p style={{ margin: 0, fontSize: '0.65rem', color: theme.accentAgri }}>Area: 1,460 m² (Optimal)</p>
+                </div>
+              </div>
+
+              {/* Node 2: Pekanbaru */}
+              <div style={{ position: 'absolute', top: '20%', right: '20%', zIndex: 5, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <div style={{ position: 'relative' }}>
+                  <div style={{ width: '14px', height: '14px', background: theme.accentWarn, borderRadius: '50%', position: 'absolute' }}></div>
+                  <div style={{ width: '14px', height: '14px', background: theme.accentWarn, borderRadius: '50%', animation: 'nodePing 2s infinite 0.5s' }}></div>
+                </div>
+                <div style={{ background: 'rgba(0,0,0,0.8)', padding: '5px 10px', borderRadius: '4px', border: `1px solid ${theme.accentWarn}`, marginTop: '8px', whiteSpace: 'nowrap' }}>
+                  <p style={{ margin: 0, fontSize: '0.7rem', color: 'white' }}>Zona B: Pekanbaru</p>
+                  <p style={{ margin: 0, fontSize: '0.6rem', color: theme.textMuted }}>Distribusi Mart (208 m²)</p>
+                </div>
+              </div>
+
+              {/* Node 3: Batam */}
+              <div style={{ position: 'absolute', bottom: '25%', left: '45%', zIndex: 5, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <div style={{ position: 'relative' }}>
+                  <div style={{ width: '14px', height: '14px', background: theme.accentCom, borderRadius: '50%', position: 'absolute' }}></div>
+                  <div style={{ width: '14px', height: '14px', background: theme.accentCom, borderRadius: '50%', animation: 'nodePing 2s infinite 1s' }}></div>
+                </div>
+                <div style={{ background: 'rgba(0,0,0,0.8)', padding: '5px 10px', borderRadius: '4px', border: `1px solid ${theme.accentCom}`, marginTop: '8px', whiteSpace: 'nowrap' }}>
+                  <p style={{ margin: 0, fontSize: '0.7rem', color: 'white' }}>Zona C: Batam</p>
+                  <p style={{ margin: 0, fontSize: '0.6rem', color: theme.textMuted }}>Gudang Transit (110 m²)</p>
+                </div>
+              </div>
+              
+              <Crosshair size={300} color={theme.border} style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', opacity: 0.3 }} />
+            </div>
+          </div>
+
+          {/* LIST STATUS LOGISTIK & TRAKTOR */}
+          <div style={{ background: 'rgba(255,255,255,0.03)', border: `1px solid rgba(255,255,255,0.1)`, borderRadius: '16px', padding: '20px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px' }}>
+              <Navigation color={theme.accentCom} /> <strong style={{color: 'white', fontSize: '1.1rem'}}>Smart Fleet & Logistics</strong>
+            </div>
+            
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '10px' }}>
+                <div>
+                  <p style={{ margin: 0, fontWeight: 'bold' }}>Drone Penyiram (Unit 01)</p>
+                  <p style={{ margin: 0, fontSize: '0.8rem', color: theme.textMuted }}>Zona Situsari - Menyiram Blok C</p>
+                </div>
+                <span style={{ background: 'rgba(74, 222, 128, 0.2)', color: theme.accentAgri, padding: '5px 10px', borderRadius: '20px', fontSize: '0.75rem', height: 'fit-content' }}>Active</span>
+              </div>
+              
+              <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '10px' }}>
+                <div>
+                  <p style={{ margin: 0, fontWeight: 'bold' }}>Tractor IoT (Pay-Per-Use)</p>
+                  <p style={{ margin: 0, fontSize: '0.8rem', color: theme.textMuted }}>Standby - Baterai 85%</p>
+                </div>
+                <span style={{ background: 'rgba(251, 191, 36, 0.2)', color: theme.accentCom, padding: '5px 10px', borderRadius: '20px', fontSize: '0.75rem', height: 'fit-content' }}>Idle</span>
+              </div>
+
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <div>
+                  <p style={{ margin: 0, fontWeight: 'bold' }}>Truk Suplai Warung</p>
+                  <p style={{ margin: 0, fontSize: '0.8rem', color: theme.textMuted }}>Menuju Gudang Batam</p>
+                </div>
+                <span style={{ background: 'rgba(34, 211, 238, 0.2)', color: theme.accentTech, padding: '5px 10px', borderRadius: '20px', fontSize: '0.75rem', height: 'fit-content' }}>In Transit</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Chart Placeholder */}
+        <div style={{ background: 'rgba(255,255,255,0.02)', padding: '30px 20px', borderRadius: '16px', border: `1px dashed ${theme.border}`, textAlign: 'center' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', color: theme.textMuted }}>
+            <Lock size={16} /> Data Historis Terenkripsi via Blockchain. Menunggu Akses VIP.
+          </div>
+        </div>
+
+      </div>
+    );
+  }
+
+  // === TAMPILAN PRESENTASI UTAMA ===
   return (
     <div style={styles.mainContainer} ref={scrollContainer}>
       <style>{`
@@ -198,6 +351,7 @@ const App = () => {
         @keyframes slideRight { 0% { transform: translateX(-5px); opacity: 0.3; } 50% { transform: translateX(5px); opacity: 1; } 100% { transform: translateX(-5px); opacity: 0.3; } }
         @keyframes pulseGlow { 0% { box-shadow: 0 0 10px rgba(34, 211, 238, 0.2); } 50% { box-shadow: 0 0 25px rgba(34, 211, 238, 0.5); } 100% { box-shadow: 0 0 10px rgba(34, 211, 238, 0.2); } }
         .neon-icon { animation: pulseGlow 2s infinite; }
+        .btn-sample:hover { transform: scale(1.05); box-shadow: 0 0 30px ${theme.accentTech}; }
         table { width: 100%; border-collapse: collapse; color: ${theme.textMain}; font-size: clamp(0.8rem, 2vw, 0.95rem); }
         th { text-align: left; padding: 10px; color: ${theme.accentCom}; border-bottom: 2px solid ${theme.border}; text-transform: uppercase; letter-spacing: 1px;}
         td { padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.05); }
@@ -207,7 +361,6 @@ const App = () => {
         ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: ${theme.border}; }
         
-        /* CSS KHUSUS MOBILE (RESPONSIVE) */
         @media (max-width: 768px) {
           .nav-dots { right: 8px !important; transform: translateY(-50%) scale(0.8) !important; gap: 10px !important; }
           .attr-box { padding: 15px !important; }
@@ -246,13 +399,12 @@ const App = () => {
 
             <div style={{position:'relative', zIndex:2, width:'100%'}}>
               
-              {/* SLIDE: Cover */}
+              {/* SLIDE COVER DENGAN TOMBOL MOCKUP */}
               {slide.id === 'cover' && (
                 <div style={{ textAlign: 'center', display:'flex', flexDirection:'column', alignItems:'center' }}>
                   <p style={{ fontSize: 'clamp(1rem, 3.5vw, 1.4rem)', color: theme.textMain, maxWidth: '800px', lineHeight: '1.6', marginBottom:'20px', fontWeight:'500' }}>{slide.content}</p>
                   
-                  {/* Container Atribusi Flexbox (Auto-Stack di HP) */}
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '15px', justifyContent: 'center', marginTop: '20px', width: '100%' }}>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '15px', justifyContent: 'center', marginTop: '10px', width: '100%' }}>
                     <div className="attr-box" style={{ flex: '1 1 200px', background: 'rgba(0,0,0,0.3)', padding: '15px 30px', borderRadius: '12px', border: `1px solid ${theme.accentWarn}`, boxSizing: 'border-box'}}>
                       <p style={{ fontSize: '0.75rem', color: theme.accentWarn, textTransform: 'uppercase', margin: '0 0 5px 0', letterSpacing: '1px' }}>Idea by:</p>
                       <strong style={{ fontSize: 'clamp(1.1rem, 3vw, 1.3rem)', color: theme.textMain }}>{slide.ideaAuthor}</strong>
@@ -264,10 +416,25 @@ const App = () => {
                       <p style={{ color: theme.textMuted, fontSize: '0.85rem', margin: '3px 0 0 0', fontStyle:'italic', wordBreak: 'break-all' }}>{slide.designEmail}</p>
                     </div>
                   </div>
+
+                  <div style={{ marginTop: '35px' }}>
+                    <button 
+                      className="btn-sample"
+                      onClick={() => setShowSample(true)}
+                      style={{
+                        background: `linear-gradient(45deg, ${theme.accentTech}, #3b82f6)`,
+                        color: '#020617', border: 'none', padding: '15px 35px',
+                        borderRadius: '50px', fontSize: '1.1rem', fontWeight: 'bold',
+                        cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '10px',
+                        boxShadow: `0 0 20px rgba(34, 211, 238, 0.4)`, transition: 'all 0.3s ease'
+                      }}
+                    >
+                      <Activity size={24} /> Buka Command Center 5G
+                    </button>
+                  </div>
                 </div>
               )}
 
-              {/* SLIDE: Network Visual */}
               {slide.isNetworkVisual && (
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', gap: '15px', marginTop: '10px' }}>
                   <div style={{ display: 'flex', justifyContent: 'center', gap: '15px', width: '100%', flexWrap: 'wrap' }}>
@@ -298,7 +465,6 @@ const App = () => {
                 </div>
               )}
 
-              {/* SLIDE: BoQ */}
               {slide.isBoQ && (
                 <div style={{overflowX: 'auto', background: 'rgba(0,0,0,0.2)', borderRadius:'12px', padding:'10px', width: '100%'}}>
                   <table style={{minWidth: '500px'}}>
@@ -352,7 +518,6 @@ const App = () => {
                 </div>
               )}
 
-              {/* SLIDE: Points */}
               {slide.points && (
                 <div style={{ display: 'inline-block', textAlign: 'left', maxWidth: '900px' }}>
                   {slide.points.map((p, i) => (
@@ -361,7 +526,6 @@ const App = () => {
                 </div>
               )}
 
-              {/* SLIDE: Grid */}
               {slide.grid && (
                 <div style={styles.gridContainer}>
                   {slide.grid.map((g, i) => (
@@ -374,7 +538,6 @@ const App = () => {
                 </div>
               )}
 
-              {/* SLIDE: Flowchart Agri */}
               {slide.isFlowchart && slide.flowType === "agri" && (
                 <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', gap: '10px', marginTop: '10px' }}>
                   <div style={styles.flowBox}><Users size={28} color={theme.accentCom} /><strong>Investor</strong></div>
@@ -387,7 +550,6 @@ const App = () => {
                 </div>
               )}
 
-              {/* SLIDE: Flowchart Warung */}
               {slide.isFlowchart && slide.flowType === "warung" && (
                 <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', gap: '10px', marginTop: '10px' }}>
                   <div style={styles.flowBox}><Store size={28} color="#f472b6" /><strong>Warung Lokal</strong></div>
@@ -402,9 +564,11 @@ const App = () => {
             </div>
           </div>
 
-          <div onClick={() => scrollToNext(index)} style={{ position: 'absolute', bottom: 'clamp(2vh, 4vh, 6vh)', cursor: 'pointer', animation: 'bounce 2s infinite', color: slide.iconColor || theme.textMuted, zIndex: 10 }}>
-            <ChevronDown size={35} />
-          </div>
+          {slide.id !== 'the_ask' && (
+            <div onClick={() => scrollToNext(index)} style={{ position: 'absolute', bottom: 'clamp(2vh, 4vh, 6vh)', cursor: 'pointer', animation: 'bounce 2s infinite', color: slide.iconColor || theme.textMuted, zIndex: 10 }}>
+              <ChevronDown size={35} />
+            </div>
+          )}
 
           <div style={{ position: 'absolute', bottom: '10px', left: '0', width: '100%', textAlign: 'center', fontSize: '0.7rem', color: 'rgba(255,255,255,0.2)', zIndex: 5, letterSpacing:'1px', padding: '0 10px' }}>
             Re-design by milzon • <span style={{fontStyle:'italic'}}>mohd.milzon@allanraytechsight.co.id</span>
