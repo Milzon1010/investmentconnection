@@ -142,48 +142,49 @@ const App = () => {
       position: 'relative', scrollSnapAlign: 'start', overflow: 'hidden'
     },
     card: {
-      maxWidth: '1100px', width: '95%', background: theme.cardBg,
-      padding: 'clamp(20px, 4vw, 50px)', borderRadius: '24px', backdropFilter: 'blur(15px)',
+      maxWidth: '1100px', width: '92%', background: theme.cardBg,
+      padding: 'clamp(15px, 5vw, 50px)', borderRadius: '24px', backdropFilter: 'blur(15px)',
       border: `1px solid ${theme.border}`, boxShadow: theme.shadow,
-      position: 'relative', zIndex: 10, transition: 'all 0.3s ease'
+      position: 'relative', zIndex: 10, transition: 'all 0.3s ease',
+      marginRight: 'clamp(5px, 3vw, 20px)' // Mencegah tabrakan dengan titik navigasi
     },
     neonTitle: (color) => ({
-      fontSize: 'clamp(2rem, 5vw, 3.8rem)', fontWeight: '700', textTransform: 'uppercase',
+      fontSize: 'clamp(1.8rem, 5vw, 3.8rem)', fontWeight: '700', textTransform: 'uppercase',
       letterSpacing: '2px', color: color || theme.accentTech, margin: '0 0 10px 0',
-      textShadow: `0 0 15px ${color || theme.accentTech}`, lineHeight: '1.1'
+      textShadow: `0 0 15px ${color || theme.accentTech}`, lineHeight: '1.1', textAlign: 'center'
     }),
     subtitle: {
-      fontSize: 'clamp(1rem, 1.8vw, 1.3rem)', color: theme.textMuted,
+      fontSize: 'clamp(0.9rem, 1.8vw, 1.3rem)', color: theme.textMuted, textAlign: 'center',
       fontWeight: '500', letterSpacing: '1px', textTransform: 'uppercase', margin: '0 0 30px 0'
     },
     divider: (color) => ({
       width: '100px', height: '3px', background: color || theme.accentTech,
       boxShadow: `0 0 10px ${color || theme.accentTech}`, margin: '0 auto 30px auto', border: 'none'
     }),
-    gridContainer: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px', width: '100%', marginTop: '20px' },
+    gridContainer: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '20px', width: '100%', marginTop: '20px' },
     gridItem: (color) => ({
-      background: 'rgba(255,255,255,0.03)', padding: '25px', borderRadius: '16px',
+      background: 'rgba(255,255,255,0.03)', padding: '20px', borderRadius: '16px',
       border: `1px solid rgba(255,255,255,0.05)`, transition: 'all 0.3s ease',
       display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px',
       cursor: 'default'
     }),
-    flowBox: { background: 'rgba(255,255,255,0.05)', padding: '20px', borderRadius: '12px', display: 'flex', flexDirection: 'column', alignItems: 'center', minWidth: '150px', border: `1px solid ${theme.border}`, position: 'relative', zIndex: 2 },
+    flowBox: { background: 'rgba(255,255,255,0.05)', padding: '15px', borderRadius: '12px', display: 'flex', flexDirection: 'column', alignItems: 'center', flex: '1 1 120px', minWidth: '120px', border: `1px solid ${theme.border}`, position: 'relative', zIndex: 2 },
     topologyNode: (color) => ({
-      display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '10px',
-      padding: '15px 20px', background: 'rgba(0,0,0,0.5)',
+      display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px',
+      padding: '12px 15px', background: 'rgba(0,0,0,0.5)', flex: '1 1 130px',
       border: `2px solid ${color || theme.accentTech}`, borderRadius: '12px',
       color: theme.textMain, textShadow: `0 0 5px ${color || theme.accentTech}`,
       boxShadow: `0 0 15px rgba(34, 211, 238, 0.2)`,
-      textAlign: 'center', minWidth: '140px', zIndex: 5,
+      textAlign: 'center', minWidth: '130px', zIndex: 5,
       backdropFilter: 'blur(5px)'
     })
   };
 
   const NeonArrow = ({ label }) => (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '5px', flex: 1, minWidth: '80px' }}>
-      <span style={{ fontSize: '0.8rem', color: theme.accentCom, fontWeight: 'bold', textTransform: 'uppercase' }}>{label}</span>
+    <div className="flow-arrow" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '5px', flex: 1, minWidth: '60px' }}>
+      <span style={{ fontSize: '0.75rem', color: theme.accentCom, fontWeight: 'bold', textTransform: 'uppercase', textAlign: 'center' }}>{label}</span>
       <div style={{ display: 'flex', alignItems: 'center', color: theme.accentCom }}>
-        <div style={{ height: '2px', width: '50px', background: theme.accentCom, boxShadow: `0 0 5px ${theme.accentCom}` }}></div>
+        <div style={{ height: '2px', width: '40px', background: theme.accentCom, boxShadow: `0 0 5px ${theme.accentCom}` }}></div>
         <ArrowRight size={20} style={{ marginLeft: '-5px', animation: 'slideRight 1.5s infinite ease-in-out' }} />
       </div>
     </div>
@@ -197,20 +198,29 @@ const App = () => {
         @keyframes slideRight { 0% { transform: translateX(-5px); opacity: 0.3; } 50% { transform: translateX(5px); opacity: 1; } 100% { transform: translateX(-5px); opacity: 0.3; } }
         @keyframes pulseGlow { 0% { box-shadow: 0 0 10px rgba(34, 211, 238, 0.2); } 50% { box-shadow: 0 0 25px rgba(34, 211, 238, 0.5); } 100% { box-shadow: 0 0 10px rgba(34, 211, 238, 0.2); } }
         .neon-icon { animation: pulseGlow 2s infinite; }
-        table { width: 100%; border-collapse: collapse; color: ${theme.textMain}; font-size: 0.95rem; }
-        th { text-align: left; padding: 12px; color: ${theme.accentCom}; border-bottom: 2px solid ${theme.border}; text-transform: uppercase; letter-spacing: 1px;}
-        td { padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        table { width: 100%; border-collapse: collapse; color: ${theme.textMain}; font-size: clamp(0.8rem, 2vw, 0.95rem); }
+        th { text-align: left; padding: 10px; color: ${theme.accentCom}; border-bottom: 2px solid ${theme.border}; text-transform: uppercase; letter-spacing: 1px;}
+        td { padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.05); }
         tr:hover td { background: rgba(255,255,255,0.03); }
-        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: ${theme.bg}; }
         ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: ${theme.border}; }
+        
+        /* CSS KHUSUS MOBILE (RESPONSIVE) */
+        @media (max-width: 768px) {
+          .nav-dots { right: 8px !important; transform: translateY(-50%) scale(0.8) !important; gap: 10px !important; }
+          .attr-box { padding: 15px !important; }
+          .flow-arrow { min-width: 30px !important; }
+          .flow-arrow div { width: 20px !important; }
+          .topo-center { padding: 15px !important; transform: scale(1) !important; }
+        }
       `}</style>
       
-      <div style={{ position: 'fixed', right: '30px', top: '50%', transform: 'translateY(-50%)', zIndex: 100, display: 'flex', flexDirection: 'column', gap: '15px' }}>
+      <div className="nav-dots" style={{ position: 'fixed', right: 'clamp(15px, 4vw, 30px)', top: '50%', transform: 'translateY(-50%)', zIndex: 100, display: 'flex', flexDirection: 'column', gap: '15px' }}>
         {slides.map((s, i) => (
           <div key={s.id} onClick={() => document.getElementById(s.id).scrollIntoView({ behavior: 'smooth' })} style={{ 
-            width: '14px', height: '14px', borderRadius: '50%', border: `2px solid ${s.iconColor || 'white'}`,
+            width: '12px', height: '12px', borderRadius: '50%', border: `2px solid ${s.iconColor || 'white'}`,
             background: activeSlide === i ? (s.iconColor || 'white') : 'transparent', 
             boxShadow: activeSlide === i ? `0 0 10px ${s.iconColor}` : 'none',
             cursor: 'pointer', transition: 'all 0.3s ease'
@@ -236,51 +246,51 @@ const App = () => {
 
             <div style={{position:'relative', zIndex:2, width:'100%'}}>
               
-              {/* SLIDE COVER FIX: slide.type diganti menjadi slide.id */}
+              {/* SLIDE: Cover */}
               {slide.id === 'cover' && (
                 <div style={{ textAlign: 'center', display:'flex', flexDirection:'column', alignItems:'center' }}>
-                  <p style={{ fontSize: '1.4rem', color: theme.textMain, maxWidth: '800px', lineHeight: '1.6', marginBottom:'40px', fontWeight:'500' }}>{slide.content}</p>
+                  <p style={{ fontSize: 'clamp(1rem, 3.5vw, 1.4rem)', color: theme.textMain, maxWidth: '800px', lineHeight: '1.6', marginBottom:'20px', fontWeight:'500' }}>{slide.content}</p>
                   
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', justifyContent: 'center', marginTop: '30px' }}>
-                    <div style={{ background: 'rgba(0,0,0,0.3)', padding: '15px 30px', borderRadius: '12px', border: `1px solid ${theme.accentWarn}`}}>
-                      <p style={{ fontSize: '0.8rem', color: theme.accentWarn, textTransform: 'uppercase', margin: '0 0 5px 0', letterSpacing: '1px' }}>Idea by:</p>
-                      <strong style={{ fontSize: '1.3rem', color: theme.textMain }}>{slide.ideaAuthor}</strong>
-                      <p style={{ color: theme.textMuted, fontSize: '0.9rem', margin: '3px 0 0 0', fontStyle:'italic' }}>{slide.ideaEmail}</p>
+                  {/* Container Atribusi Flexbox (Auto-Stack di HP) */}
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '15px', justifyContent: 'center', marginTop: '20px', width: '100%' }}>
+                    <div className="attr-box" style={{ flex: '1 1 200px', background: 'rgba(0,0,0,0.3)', padding: '15px 30px', borderRadius: '12px', border: `1px solid ${theme.accentWarn}`, boxSizing: 'border-box'}}>
+                      <p style={{ fontSize: '0.75rem', color: theme.accentWarn, textTransform: 'uppercase', margin: '0 0 5px 0', letterSpacing: '1px' }}>Idea by:</p>
+                      <strong style={{ fontSize: 'clamp(1.1rem, 3vw, 1.3rem)', color: theme.textMain }}>{slide.ideaAuthor}</strong>
+                      <p style={{ color: theme.textMuted, fontSize: '0.85rem', margin: '3px 0 0 0', fontStyle:'italic', wordBreak: 'break-all' }}>{slide.ideaEmail}</p>
                     </div>
-                    <div style={{ background: 'rgba(0,0,0,0.3)', padding: '15px 30px', borderRadius: '12px', border: `1px solid ${theme.accentTech}`}}>
-                      <p style={{ fontSize: '0.8rem', color: theme.accentTech, textTransform: 'uppercase', margin: '0 0 5px 0', letterSpacing: '1px' }}>Project design by:</p>
-                      <strong style={{ fontSize: '1.3rem', color: theme.textMain }}>{slide.designAuthor}</strong>
-                      <p style={{ color: theme.textMuted, fontSize: '0.9rem', margin: '3px 0 0 0', fontStyle:'italic' }}>{slide.designEmail}</p>
+                    <div className="attr-box" style={{ flex: '1 1 200px', background: 'rgba(0,0,0,0.3)', padding: '15px 30px', borderRadius: '12px', border: `1px solid ${theme.accentTech}`, boxSizing: 'border-box'}}>
+                      <p style={{ fontSize: '0.75rem', color: theme.accentTech, textTransform: 'uppercase', margin: '0 0 5px 0', letterSpacing: '1px' }}>Project design by:</p>
+                      <strong style={{ fontSize: 'clamp(1.1rem, 3vw, 1.3rem)', color: theme.textMain }}>{slide.designAuthor}</strong>
+                      <p style={{ color: theme.textMuted, fontSize: '0.85rem', margin: '3px 0 0 0', fontStyle:'italic', wordBreak: 'break-all' }}>{slide.designEmail}</p>
                     </div>
                   </div>
                 </div>
               )}
 
+              {/* SLIDE: Network Visual */}
               {slide.isNetworkVisual && (
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', gap: '20px', marginTop: '10px' }}>
-                  <div style={{ display: 'flex', justifyContent: 'center', gap: 'clamp(10px, 3vw, 40px)', width: '100%', flexWrap: 'wrap' }}>
-                    <div style={styles.topologyNode(theme.accentTech)}><Wifi size={32} /><span>Massive MIMO 5G</span></div>
-                    <div style={styles.topologyNode(theme.accentTech)}><Radio size={32} /><span>Outdoor Small Cell</span></div>
-                    <div style={styles.topologyNode(theme.accentTech)}><Router size={32} /><span>Outdoor DAS</span></div>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', gap: '15px', marginTop: '10px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'center', gap: '15px', width: '100%', flexWrap: 'wrap' }}>
+                    <div style={styles.topologyNode(theme.accentTech)}><Wifi size={28} /><span>Massive MIMO 5G</span></div>
+                    <div style={styles.topologyNode(theme.accentTech)}><Radio size={28} /><span>Outdoor Small Cell</span></div>
+                    <div style={styles.topologyNode(theme.accentTech)}><Router size={28} /><span>Outdoor DAS</span></div>
                   </div>
-                  <div style={{ display: 'flex', gap: '80px', opacity: 0.5 }}>
-                     <ChevronDown size={30} color={theme.accentTech} />
-                     <ChevronDown size={30} color={theme.accentTech} />
-                     <ChevronDown size={30} color={theme.accentTech} />
+                  <div style={{ display: 'flex', gap: '15px', opacity: 0.5 }}>
+                     <ChevronDown size={24} color={theme.accentTech} />
                   </div>
-                  <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '30px', width: '100%', flexWrap: 'wrap' }}>
-                    <div style={styles.topologyNode(theme.accentAgri)}><Activity size={32} /><span>Metro Cell</span></div>
-                    <div style={{...styles.topologyNode(theme.accentWarn), padding: '20px 40px', transform: 'scale(1.1)', boxShadow: `0 0 30px ${theme.accentWarn}60`, zIndex: 10}}>
-                       <Server size={40} />
-                       <span style={{ fontSize: '1.2rem', fontWeight: 'bold', letterSpacing: '1px' }}>METRO CORE NETWORK</span>
-                       <span style={{ fontSize: '0.85rem', color: theme.accentCom }}>+ Mobile Backhaul (Fiber)</span>
+                  <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '15px', width: '100%', flexWrap: 'wrap' }}>
+                    <div style={styles.topologyNode(theme.accentAgri)}><Activity size={28} /><span>Metro Cell</span></div>
+                    <div className="topo-center" style={{...styles.topologyNode(theme.accentWarn), padding: '20px', transform: 'scale(1.1)', boxShadow: `0 0 30px ${theme.accentWarn}60`, zIndex: 10}}>
+                       <Server size={36} />
+                       <span style={{ fontSize: 'clamp(0.9rem, 2.5vw, 1.2rem)', fontWeight: 'bold', letterSpacing: '1px' }}>METRO CORE</span>
+                       <span style={{ fontSize: '0.75rem', color: theme.accentCom }}>+ Fiber Backhaul</span>
                     </div>
-                    <div style={styles.topologyNode(theme.accentAgri)}><HardDrive size={32} /><span>Indoor DAS</span></div>
+                    <div style={styles.topologyNode(theme.accentAgri)}><HardDrive size={28} /><span>Indoor DAS</span></div>
                   </div>
-                  <div style={{ display: 'flex', gap: '80px', opacity: 0.5 }}>
-                     <ChevronDown size={30} color={theme.accentCom} />
+                  <div style={{ display: 'flex', gap: '15px', opacity: 0.5 }}>
+                     <ChevronDown size={24} color={theme.accentCom} />
                   </div>
-                  <div style={{ display: 'flex', justifyContent: 'center', gap: 'clamp(10px, 3vw, 40px)', width: '100%', flexWrap: 'wrap' }}>
+                  <div style={{ display: 'flex', justifyContent: 'center', gap: '15px', width: '100%', flexWrap: 'wrap' }}>
                     <div style={styles.topologyNode(theme.accentCom)}><Sprout size={24} /><span>IoT Agriculture</span></div>
                     <div style={styles.topologyNode(theme.accentCom)}><Truck size={24} /><span>Smart Logistics</span></div>
                     <div style={styles.topologyNode(theme.accentCom)}><Store size={24} /><span>Warung Mart</span></div>
@@ -288,49 +298,50 @@ const App = () => {
                 </div>
               )}
 
+              {/* SLIDE: BoQ */}
               {slide.isBoQ && (
-                <div style={{overflowX: 'auto', background: 'rgba(0,0,0,0.2)', borderRadius:'12px', padding:'10px'}}>
-                  <table>
+                <div style={{overflowX: 'auto', background: 'rgba(0,0,0,0.2)', borderRadius:'12px', padding:'10px', width: '100%'}}>
+                  <table style={{minWidth: '500px'}}>
                     <thead>
                       <tr>
                         <th>Deskripsi Perangkat</th>
                         <th>Kategori</th>
-                        <th>Estimasi Qty</th>
+                        <th>Qty</th>
                         <th>Satuan</th>
                         <th>Urgensi</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
-                        <td><strong>5G gNodeB (Small Cell) + Antena</strong></td>
+                        <td><strong>5G gNodeB (Small Cell)</strong></td>
                         <td>Infrastruktur</td>
                         <td>2 - 4</td>
                         <td>Unit</td>
                         <td style={{color: theme.accentWarn, fontWeight:'bold'}}>Kritis</td>
                       </tr>
                       <tr>
-                        <td><strong>IoT Gateway & Edge Server Lokal</strong></td>
+                        <td><strong>IoT Gateway & Edge Server</strong></td>
                         <td>Komputasi</td>
                         <td>1</td>
                         <td>Set</td>
                         <td style={{color: theme.accentWarn, fontWeight:'bold'}}>Kritis</td>
                       </tr>
                       <tr>
-                        <td><strong>IoT Sensor Kits (Tanah, Cuaca, Ternak)</strong></td>
+                        <td><strong>IoT Sensor Kits</strong></td>
                         <td>End Device</td>
                         <td>50 - 100</td>
                         <td>Pcs</td>
                         <td style={{color: theme.accentAgri}}>Tinggi</td>
                       </tr>
                       <tr>
-                        <td><strong>CCTV Streamer + Solar Power Kit</strong></td>
+                        <td><strong>CCTV Streamer + Solar Kit</strong></td>
                         <td>Surveillance</td>
                         <td>5 - 10</td>
                         <td>Set</td>
                         <td style={{color: theme.accentAgri}}>Tinggi</td>
                       </tr>
                       <tr>
-                        <td><strong>Rugged Tablet (Petani) & POS Kit (Warung)</strong></td>
+                        <td><strong>Rugged Tablet & POS Kit</strong></td>
                         <td>User Device</td>
                         <td>15 - 20</td>
                         <td>Unit</td>
@@ -341,57 +352,61 @@ const App = () => {
                 </div>
               )}
 
+              {/* SLIDE: Points */}
               {slide.points && (
                 <div style={{ display: 'inline-block', textAlign: 'left', maxWidth: '900px' }}>
                   {slide.points.map((p, i) => (
-                    <div key={i} style={styles.point}><Zap size={20} color={slide.iconColor} style={{ flexShrink: 0 }} /> {p}</div>
+                    <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '15px', fontSize: 'clamp(0.9rem, 2.5vw, 1.1rem)', marginBottom: '15px', lineHeight: '1.4' }}><Zap size={20} color={slide.iconColor} style={{ flexShrink: 0, marginTop: '3px' }} /> {p}</div>
                   ))}
                 </div>
               )}
 
+              {/* SLIDE: Grid */}
               {slide.grid && (
                 <div style={styles.gridContainer}>
                   {slide.grid.map((g, i) => (
                     <div key={i} style={styles.gridItem(slide.iconColor)}>
                       <div style={{ padding: '12px', background: 'rgba(0,0,0,0.3)', borderRadius: '50%', color: slide.iconColor, border: `1px solid ${slide.iconColor}` }}>{g.icon}</div>
-                      <div style={{ fontWeight: 'bold', fontSize: '1.2rem', marginTop: '10px', color: theme.textMain, textAlign: 'center' }}>{g.label}</div>
-                      <div style={{ fontSize: '0.95rem', opacity: 0.85, textAlign: 'center', color: theme.textMuted, lineHeight: '1.5' }}>{g.desc}</div>
+                      <div style={{ fontWeight: 'bold', fontSize: '1.1rem', marginTop: '5px', color: theme.textMain, textAlign: 'center' }}>{g.label}</div>
+                      <div style={{ fontSize: '0.9rem', opacity: 0.85, textAlign: 'center', color: theme.textMuted, lineHeight: '1.4' }}>{g.desc}</div>
                     </div>
                   ))}
                 </div>
               )}
 
+              {/* SLIDE: Flowchart Agri */}
               {slide.isFlowchart && slide.flowType === "agri" && (
                 <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', gap: '10px', marginTop: '10px' }}>
-                  <div style={styles.flowBox}><Users size={32} color={theme.accentCom} /><strong>Investor</strong></div>
+                  <div style={styles.flowBox}><Users size={28} color={theme.accentCom} /><strong>Investor</strong></div>
                   <NeonArrow label="Modal" />
-                  <div style={styles.flowBox}><MapPin size={32} color={theme.accentTech} /><strong>Platform Hub</strong></div>
+                  <div style={styles.flowBox}><MapPin size={28} color={theme.accentTech} /><strong>Platform Hub</strong></div>
                   <NeonArrow label="OPEX / Alat" />
-                  <div style={styles.flowBox}><Sprout size={32} color={theme.accentAgri} /><strong>Petani & IoT</strong></div>
+                  <div style={styles.flowBox}><Sprout size={28} color={theme.accentAgri} /><strong>Petani & IoT</strong></div>
                   <NeonArrow label="Hasil Panen" />
-                  <div style={styles.flowBox}><ShoppingCart size={32} color={theme.accentCom} /><strong>Buyer</strong></div>
+                  <div style={styles.flowBox}><ShoppingCart size={28} color={theme.accentCom} /><strong>Buyer</strong></div>
                 </div>
               )}
 
+              {/* SLIDE: Flowchart Warung */}
               {slide.isFlowchart && slide.flowType === "warung" && (
                 <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center', gap: '10px', marginTop: '10px' }}>
-                  <div style={styles.flowBox}><Store size={32} color="#f472b6" /><strong>Warung Lokal</strong></div>
-                  <NeonArrow label="Order Gabungan" />
-                  <div style={styles.flowBox}><MonitorSmartphone size={32} color="#c084fc" /><strong>Platform Mart</strong></div>
+                  <div style={styles.flowBox}><Store size={28} color="#f472b6" /><strong>Warung Lokal</strong></div>
+                  <NeonArrow label="Order Gabung" />
+                  <div style={styles.flowBox}><MonitorSmartphone size={28} color="#c084fc" /><strong>Platform Mart</strong></div>
                   <NeonArrow label="Volume Beli" />
-                  <div style={styles.flowBox}><Factory size={32} color="#94a3b8" /><strong>Distributor</strong></div>
+                  <div style={styles.flowBox}><Factory size={28} color="#94a3b8" /><strong>Distributor</strong></div>
                   <NeonArrow label="Suplai" />
-                  <div style={styles.flowBox}><Users size={32} color="#fb923c" /><strong>Warga</strong></div>
+                  <div style={styles.flowBox}><Users size={28} color="#fb923c" /><strong>Warga</strong></div>
                 </div>
               )}
             </div>
           </div>
 
-          <div onClick={() => scrollToNext(index)} style={{ position: 'absolute', bottom: '6vh', cursor: 'pointer', animation: 'bounce 2s infinite', color: slide.iconColor || theme.textMuted, zIndex: 10 }}>
-            <ChevronDown size={40} />
+          <div onClick={() => scrollToNext(index)} style={{ position: 'absolute', bottom: 'clamp(2vh, 4vh, 6vh)', cursor: 'pointer', animation: 'bounce 2s infinite', color: slide.iconColor || theme.textMuted, zIndex: 10 }}>
+            <ChevronDown size={35} />
           </div>
 
-          <div style={{ position: 'absolute', bottom: '10px', left: '0', width: '100%', textAlign: 'center', fontSize: '0.75rem', color: 'rgba(255,255,255,0.2)', zIndex: 5, letterSpacing:'1px' }}>
+          <div style={{ position: 'absolute', bottom: '10px', left: '0', width: '100%', textAlign: 'center', fontSize: '0.7rem', color: 'rgba(255,255,255,0.2)', zIndex: 5, letterSpacing:'1px', padding: '0 10px' }}>
             Re-design by milzon • <span style={{fontStyle:'italic'}}>mohd.milzon@allanraytechsight.co.id</span>
           </div>
         </section>
